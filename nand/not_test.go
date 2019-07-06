@@ -1,6 +1,7 @@
 package nand
 
 import (
+	"reflect"
 	"strconv"
 	"testing"
 )
@@ -22,5 +23,15 @@ func TestNot(t *testing.T) {
 				t.Errorf("got %v, want %v", r, e.out)
 			}
 		})
+	}
+}
+
+func TestMultiBitNot(t *testing.T) {
+	in := []bool{true, true, false, true, false}
+	exp := []bool{false, false, true, false, true}
+	r := MultiBitNot(in)
+
+	if !reflect.DeepEqual(r, exp) {
+		t.Errorf("got %v, want %v", r, exp)
 	}
 }
