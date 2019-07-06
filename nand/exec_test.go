@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func inToName(in []bool) string {
+func inToName(in ...bool) string {
 	var res string
 
 	for i, b := range in {
@@ -21,18 +21,19 @@ func inToName(in []bool) string {
 
 func TestExec(t *testing.T) {
 	truthTable := []struct {
-		in  [2]bool
+		a   bool
+		b   bool
 		out bool
 	}{
-		{[...]bool{true, true}, false},
-		{[...]bool{true, false}, true},
-		{[...]bool{false, false}, true},
-		{[...]bool{false, true}, true},
+		{true, true, false},
+		{true, false, true},
+		{false, false, true},
+		{false, true, true},
 	}
 
 	for _, e := range truthTable {
-		t.Run(inToName(e.in[:]), func(t *testing.T) {
-			r := Exec(e.in[0], e.in[1])
+		t.Run(inToName(e.a, e.b), func(t *testing.T) {
+			r := Exec(e.a, e.b)
 
 			if r != e.out {
 				t.Errorf("got %v, want %v", r, e.out)

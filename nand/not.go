@@ -1,8 +1,8 @@
 package nand
 
 // Not performs a NOT operation on the input.
-func Not(a bool) bool {
-	return Exec(a, a)
+func Not(in bool) bool {
+	return Exec(in, in)
 }
 
 // MultiBitNot performs a NOT operation on each element of the slice

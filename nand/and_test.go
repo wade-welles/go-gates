@@ -7,18 +7,19 @@ import (
 
 func TestAnd(t *testing.T) {
 	truthTable := []struct {
-		in  [2]bool
+		a   bool
+		b   bool
 		out bool
 	}{
-		{[...]bool{true, true}, true},
-		{[...]bool{true, false}, false},
-		{[...]bool{false, false}, false},
-		{[...]bool{false, true}, false},
+		{true, true, true},
+		{true, false, false},
+		{false, false, false},
+		{false, true, false},
 	}
 
 	for _, e := range truthTable {
-		t.Run(inToName(e.in[:]), func(t *testing.T) {
-			r := And(e.in[0], e.in[1])
+		t.Run(inToName(e.a, e.b), func(t *testing.T) {
+			r := And(e.a, e.b)
 
 			if r != e.out {
 				t.Errorf("got %v, want %v", r, e.out)

@@ -1,28 +1,31 @@
 package nand
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
 
 func TestMux(t *testing.T) {
 	truthTable := []struct {
-		in  [3]bool
+		a   bool
+		b   bool
+		s   bool
 		out bool
 	}{
-		{[...]bool{true, true, true}, true},
-		{[...]bool{true, true, false}, true},
-		{[...]bool{true, false, false}, true},
-		{[...]bool{true, false, true}, false},
-		{[...]bool{false, false, false}, false},
-		{[...]bool{false, false, true}, false},
-		{[...]bool{false, true, true}, true},
-		{[...]bool{false, true, false}, false},
+		{true, true, true, true},
+		{true, true, false, true},
+		{true, false, false, true},
+		{true, false, true, false},
+		{false, false, false, false},
+		{false, false, true, false},
+		{false, true, true, true},
+		{false, true, false, false},
 	}
 
 	for _, e := range truthTable {
-		t.Run(inToName(e.in[:]), func(t *testing.T) {
-			r := Mux(e.in[0], e.in[1], e.in[2])
+		t.Run(inToName(e.a, e.b, e.s), func(t *testing.T) {
+			r := Mux(e.a, e.b, e.s)
 
 			if r != e.out {
 				t.Errorf("got %v, want %v", r, e.out)
@@ -53,10 +56,12 @@ func TestMultiBitMux(t *testing.T) {
 	}
 
 	for _, e := range truthTable {
-		r := MultiBitMux(e.a, e.b, e.s)
+		t.Run(fmt.Sprintf("s=%v", e.s), func(t *testing.T) {
+			r := MultiBitMux(e.a, e.b, e.s)
 
-		if !reflect.DeepEqual(r, e.out) {
-			t.Errorf("got %v, want %v", r, e.out)
-		}
+			if !reflect.DeepEqual(r, e.out) {
+				t.Errorf("got %v, want %v", r, e.out)
+			}
+		})
 	}
 }
