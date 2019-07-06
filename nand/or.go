@@ -15,3 +15,14 @@ func MultiBitOr(a []bool, b []bool) []bool {
 
 	return r
 }
+
+// MultiWayOr performs an OR operation on all elements of the slice
+func MultiWayOr(in []bool) bool {
+	for _, e := range in {
+		if e {
+			return true
+		}
+	}
+
+	return false
+}

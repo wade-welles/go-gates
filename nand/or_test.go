@@ -36,3 +36,24 @@ func TestMultiBitOr(t *testing.T) {
 		t.Errorf("got %v, want %v", r, exp)
 	}
 }
+
+func TestMultiWayOr(t *testing.T) {
+	truthTable := []struct {
+		name string
+		in   []bool
+		out  bool
+	}{
+		{"all inputs false", []bool{false, false, false}, false},
+		{"at least one input true", []bool{true, false, false}, true},
+	}
+
+	for _, e := range truthTable {
+		t.Run(e.name, func(t *testing.T) {
+			r := MultiWayOr(e.in)
+
+			if e.out != r {
+				t.Errorf("got %v, want %v", r, e.out)
+			}
+		})
+	}
+}
