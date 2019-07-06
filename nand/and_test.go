@@ -1,6 +1,9 @@
 package nand
 
-import "testing"
+import (
+	"reflect"
+	"testing"
+)
 
 func TestAnd(t *testing.T) {
 	truthTable := []struct {
@@ -21,5 +24,16 @@ func TestAnd(t *testing.T) {
 				t.Errorf("got %v, want %v", r, e.out)
 			}
 		})
+	}
+}
+
+func TestMultiBitAnd(t *testing.T) {
+	a := []bool{true, false, true, false}
+	b := []bool{true, true, false, false}
+	exp := []bool{true, false, false, false}
+	r := MultiBitAnd(a, b)
+
+	if !reflect.DeepEqual(r, exp) {
+		t.Errorf("got %v, want %v", r, exp)
 	}
 }
