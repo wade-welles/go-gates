@@ -1,7 +1,7 @@
 package nand
 
 // Mux outputs one of two inputs based on s
-func Mux(a bool, b bool, s bool) bool {
+func Mux(a, b, s bool) bool {
 	return Or(
 		And(a, Not(s)),
 		And(b, s),
@@ -9,7 +9,7 @@ func Mux(a bool, b bool, s bool) bool {
 }
 
 // MultiBitMux outputs, based on s, a slice containing either the elements of a or b
-func MultiBitMux(a []bool, b []bool, s bool) []bool {
+func MultiBitMux(a, b []bool, s bool) []bool {
 	r := make([]bool, len(a))
 
 	for i := range r {
