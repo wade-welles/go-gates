@@ -5,11 +5,18 @@ import (
 	"testing"
 )
 
-func inToName(in [2]bool) string {
-	first := strconv.FormatBool(in[0])
-	second := strconv.FormatBool(in[1])
+func inToName(in []bool) string {
+	var res string
 
-	return first + second
+	for i, b := range in {
+		if i == 0 {
+			res += strconv.FormatBool(b)
+		} else {
+			res += "_" + strconv.FormatBool(b)
+		}
+	}
+
+	return res
 }
 
 func TestExec(t *testing.T) {
@@ -24,7 +31,7 @@ func TestExec(t *testing.T) {
 	}
 
 	for _, e := range truthTable {
-		t.Run(inToName(e.in), func(t *testing.T) {
+		t.Run(inToName(e.in[:]), func(t *testing.T) {
 			r := Exec(e.in[0], e.in[1])
 
 			if r != e.out {

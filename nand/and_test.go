@@ -14,7 +14,7 @@ func TestAnd(t *testing.T) {
 	}
 
 	for _, e := range truthTable {
-		t.Run(inToName(e.in), func(t *testing.T) {
+		t.Run(inToName(e.in[:]), func(t *testing.T) {
 			r := And(e.in[0], e.in[1])
 
 			if r != e.out {
